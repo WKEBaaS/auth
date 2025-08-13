@@ -4,16 +4,16 @@
     "": {
       "name": "project-auth",
       "dependencies": {
-        "@better-auth/sso": "^1.3.4",
+        "@better-auth/sso": "^1.3.5",
         "@elysiajs/cors": "^1.3.3",
         "@elysiajs/swagger": "^1.3.1",
         "@youmin1017/better-auth-i3s": "^0.0.7",
-        "better-auth": "^1.3.4",
-        "drizzle-orm": "^0.44.3",
-        "elysia": "^1.3.6",
+        "better-auth": "^1.3.5",
+        "drizzle-orm": "^0.44.4",
+        "elysia": "^1.3.8",
       },
       "devDependencies": {
-        "@types/bun": "^1.2.19",
+        "@types/bun": "^1.2.20",
         "bun-types": "latest",
         "drizzle-kit": "^0.31.4",
       },
