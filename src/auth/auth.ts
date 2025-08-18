@@ -6,10 +6,10 @@ import { I3S } from '@youmin1017/better-auth-i3s';
 import { betterAuth, BetterAuthOptions } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { bearer, jwt, openAPI } from 'better-auth/plugins';
-import { genSocialProviders } from './providers';
 
 const options = {
-	trustedOrigins: config.trustedOrigins,
+	secret: config.auth.secret,
+	trustedOrigins: config.auth.trustedOrigins,
 	database: drizzleAdapter(db, {
 		provider: 'pg',
 		usePlural: true,
@@ -20,8 +20,17 @@ const options = {
 			generateId: () => Bun.randomUUIDv7(),
 		},
 	},
+	user: {
+		additionalFields: {
+			role: {
+				type: 'string',
+				defaultValue: 'authenticated',
+				returned: true,
+			},
+		},
+	},
 	emailAndPassword: {
-		enabled: false,
+		enabled: config.auth.emailAndPasswordEnabled,
 	},
 	plugins: [
 		I3S(),
@@ -34,9 +43,21 @@ const options = {
 					modelName: 'jwk',
 				},
 			},
+			jwt: {
+				expirationTime: config.auth.jwt.expirationTime,
+				definePayload({ user }) {
+					return {
+						role: user.role,
+						email: user.email,
+						emailVerified: user.emailVerified,
+						createdAt: user.createdAt,
+						updatedAt: user.updatedAt,
+						image: user.image,
+					};
+				},
+			},
 		}),
 	],
-	socialProviders: genSocialProviders(),
 } satisfies BetterAuthOptions;
 
 export const auth = betterAuth(options);

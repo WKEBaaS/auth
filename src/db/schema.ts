@@ -11,6 +11,8 @@ export const users = authSchema.table('users', {
 	emailVerified: boolean('email_verified')
 		.$defaultFn(() => !1)
 		.notNull(),
+	role: text('role')
+		.default('authenticated'),
 	image: text('image'),
 	createdAt: timestamp('created_at')
 		.$defaultFn(() => new Date())
