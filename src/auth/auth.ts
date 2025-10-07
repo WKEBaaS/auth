@@ -19,6 +19,10 @@ const options = {
 		database: {
 			generateId: () => Bun.randomUUIDv7(),
 		},
+		defaultCookieAttributes: {
+			sameSite: 'Lax',
+			secure: true,
+		},
 	},
 	user: {
 		additionalFields: {

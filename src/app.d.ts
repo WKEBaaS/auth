@@ -1,7 +1,7 @@
 declare module 'bun' {
 	interface Env {
-		AUTH_URL: string; // Base URL of your app
-		AUTH_SECRET: string; // Secret key for signing tokens
+		BETTER_AUTH_URL: string; // Base URL of your app
+		BETTER_AUTH_SECRET: string; // Secret key for signing tokens
 		DATABASE_URL: string; // Database connection string
 		// Optional Configurations
 		// Social Providers

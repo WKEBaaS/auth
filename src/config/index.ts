@@ -8,11 +8,13 @@ export const config = {
 	},
 	auth: {
 		trustedOrigins: trustedOrigins,
-		url: Bun.env.AUTH_URL,
-		secret: Bun.env.AUTH_SECRET,
+		url: Bun.env.BETTER_AUTH_URL,
+		secret: Bun.env.BETTER_AUTH_SECRET,
 		emailAndPasswordEnabled: isEnabled(Bun.env.EMAIL_AND_PASSWORD_ENABLED),
 		jwt: {
 			expirationTime: Bun.env.JWT_EXPIRATION_TIME || '15m',
 		},
 	},
 };
+
+console.log('Config:', config);
