@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm';
-import { boolean, integer, pgSchema, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { boolean, integer, pgSchema, primaryKey, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 
 const authSchema = pgSchema('auth');
 const dboSchema = pgSchema('dbo');
@@ -21,6 +21,15 @@ export const users = authSchema.table('users', {
 		.$defaultFn(() => new Date())
 		.notNull(),
 });
+
+export const userGroups = authSchema.table('user_groups', {
+	user_id: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+	group_name: text('group_name').notNull(),
+	created_at: timestamp('created_at').$defaultFn(() => new Date()).notNull(),
+	updated_at: timestamp('updated_at').$defaultFn(() => new Date()).notNull(),
+}, (table) => [
+	primaryKey({ columns: [table.user_id, table.group_name] }),
+]);
 
 export const sessions = authSchema.table('sessions', {
 	id: uuid('id').primaryKey(),
